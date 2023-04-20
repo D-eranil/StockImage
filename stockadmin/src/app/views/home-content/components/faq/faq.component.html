@@ -1,0 +1,39 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Edit FAQs</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form *ngIf="FAQResponse">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16"> 
+                    <br> 
+                    <h3 style="font-weight: bold;">Items</h3>                        
+                    <div class="pb-16" *ngFor="let item of FAQResponse; let index = i;"> 
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="question" 
+                            placeholder="question"
+                            [value]="item.question">
+                        </mat-form-field> 
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="answer"   
+                            placeholder="answer"   
+                            [value]="item.answer">
+                        </mat-form-field> 
+                    </div> 
+                </div> 
+            </div>
+            <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"    
+            >Submit</button>
+            <div *ngIf="message" [ngClass]="{ 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div> 
+            <alert></alert>
+        </form>
+    </mat-card-content>
+</mat-card>

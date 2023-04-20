@@ -1,0 +1,48 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Edit Spotlight Details</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form *ngIf="spotlightResponse" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
+                      
+                    <br> 
+                    <h3 style="font-weight: bold;">Items</h3>                        
+                    <div class="pb-16" *ngFor="let item of spotlightResponse; let index = i;"> 
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="title" 
+                            placeholder="title"
+                            [value]="item.title">
+                        </mat-form-field> 
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="description"   
+                            placeholder="description"   
+                            [value]="item.description">
+                        </mat-form-field>
+                        <img [src]="item.image_url" alt="banner image"> 
+                        <mat-card-content>
+                            <h5>Update Image</h5>
+                            <div class="mb-16"> 
+                              <input type="file" (change)="uploadFile($event.target.files)" />
+                            </div> 
+                        </mat-card-content>
+                    </div> 
+                </div> 
+            </div>
+            <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"  
+            [disabled]="form.invalid" 
+            >Submit</button>
+            <div *ngIf="message" [ngClass]="{ 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div> 
+            <alert></alert>
+        </form>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,66 @@
+<mat-card class="p-0">
+    <mat-card-title class="">
+        <div class="card-title-text">Edit What We Provide Details</div>
+        <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content>
+        <form *ngIf="whatWeProvideResponse" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div fxLayout="row wrap">
+                <div fxFlex="100" fxFlex.gt-xs="50" class="pr-16">
+                    <div class="pb-16"> 
+                        <mat-form-field class="full-width">
+                            <input
+                            matInput
+                            name="title"
+                            formControlName="title"
+                            placeholder="title (Min Length: 20, Max Length: 60)"
+                            value="">
+                        </mat-form-field>
+                        <small 
+                        *ngIf="form.controls['title'].hasError('minlength') && form.controls['title'].touched" 
+                        class="form-error-msg"> Title require at least {{form.controls['title'].errors.minlength.requiredLength}} characters </small>
+                        <small  
+                        *ngIf="form.controls['title'].hasError('maxlength') && form.controls['title'].touched"
+                        class="form-error-msg"> Title can not contain more than {{form.controls['title'].errors.maxlength.requiredLength}} characters </small>
+                    </div>
+
+                    <br><br>
+                    <h3>Items</h3>
+  
+                    <div class="pb-16" *ngFor="let item of whatWeProvideResponse.items; let index = i;"> 
+                        <mat-form-field class="full-width">
+                            <input 
+                            matInput     
+                            readonly
+                            [value]="item.title">
+                        </mat-form-field>    
+
+                        <mat-form-field class="full-width">
+                            <input 
+                            matInput 
+                            [value]="item.subtitle">
+                        </mat-form-field>          
+                         
+                        <img [src]="item.image_url" alt="banner image"> 
+                        <mat-card-content>
+                            <h5>Update Image</h5>
+                            <div class="mb-16"> 
+                              <input type="file" (change)="uploadFile($event.target.files)" />
+                            </div> 
+                        </mat-card-content>
+                    </div>
+ 
+                </div> 
+            </div>
+            <button 
+            mat-raised-button 
+            color="primary" 
+            type="submit"  
+            [disabled]="form.invalid" 
+            >Submit</button>
+            <div *ngIf="message" [ngClass]="{ 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+
+            <alert></alert>
+        </form>
+    </mat-card-content>
+</mat-card>
